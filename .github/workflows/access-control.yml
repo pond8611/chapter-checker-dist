@@ -1,0 +1,67 @@
+name: Owner access control
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "สิ่งที่ต้องการทำ"
+        required: true
+        type: choice
+        options:
+          - allow
+          - block
+          - remove
+      device_hash:
+        description: "รหัสเครื่อง 64 ตัวที่โปรแกรมแสดง"
+        required: true
+        type: string
+      label:
+        description: "ชื่อจำง่าย ห้ามใส่ข้อมูลส่วนตัว"
+        required: false
+        default: ""
+        type: string
+      message:
+        description: "ข้อความสั้นที่จะแสดงเมื่อถูกบล็อก"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chapter-checker-access-control
+  cancel-in-progress: false
+
+jobs:
+  update-access:
+    if: github.actor == 'pond8611' && github.actor_id == '165383609'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the dedicated distribution repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Validate and update access.json
+        env:
+          ACCESS_OPERATION: ${{ inputs.operation }}
+          ACCESS_DEVICE_HASH: ${{ inputs.device_hash }}
+          ACCESS_LABEL: ${{ inputs.label }}
+          ACCESS_MESSAGE: ${{ inputs.message }}
+        run: >-
+          python3 .github/scripts/update_access.py access.json
+          "$ACCESS_OPERATION" "$ACCESS_DEVICE_HASH" "$ACCESS_LABEL" "$ACCESS_MESSAGE"
+
+      - name: Commit one atomic access revision
+        run: |
+          if git diff --quiet -- access.json; then
+            echo "No access change was needed."
+            exit 0
+          fi
+          git config user.name "chapter-checker-access-bot"
+          git config user.email "chapter-checker-access-bot@users.noreply.github.com"
+          git add -- access.json
+          git commit -m "access: ${{ inputs.operation }} device"
+          git push origin HEAD:main
