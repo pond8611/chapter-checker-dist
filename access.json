@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "app_id": "pond8611.chapter-checker",
-  "revision": 4,
-  "updated_utc": "2026-08-18T14:22:22Z",
+  "revision": 5,
+  "updated_utc": "2026-08-18T15:01:16Z",
   "minimum_version": "3.0.0",
   "devices": [
     {
       "device_hash": "44118a48cb1d05bee022042d55f7a6c23d062df169e2cab458b5914f2b6dfcd6",
-      "status": "allowed",
+      "status": "blocked",
       "label": "owner-main",
-      "message": ""
+      "message": "สิทธิ์ถูกระงับโดยเจ้าของ"
     }
   ]
 }
