@@ -2,8 +2,9 @@
 
 รีโพนี้ใช้แจกอัปเดต Chapter Checker และเก็บไฟล์ประวัติของระบบรุ่นเก่าเท่านั้น
 
-- v4.2.2 ใช้ presence แบบเข้ารหัสผ่าน `ntfy.sh` เพื่อแสดงอุปกรณ์ที่รายงานตัวโดยประมาณเท่านั้น; ไม่มี access-control, block, kick, OAuth, Cloudflare หรือฐานข้อมูลกลางในโปรแกรมที่แจก
+- v4.2.3 ใช้ presence แบบเข้ารหัสผ่าน `ntfy.sh` เพื่อแสดงอุปกรณ์ที่รายงานตัวโดยประมาณเท่านั้น; ไม่มี access-control, block, kick, OAuth, Cloudflare หรือฐานข้อมูลกลางในโปรแกรมที่แจก
+- ผู้ใช้ v4.0.0–v4.2.2 รับ v4.2.3 ผ่าน signed public updater; Host ที่รองรับ signed exact-hash transition จะ refresh Rescue selector ได้หลัง UI-ready/probation/commit เท่านั้น ส่วน trust-root change หรือ Host ที่ไม่รองรับ transition ต้องรับ RAR ใหม่
 - `access.json`, `control/` และ workflow เดิมคงไว้เป็นหลักฐานประวัติแบบ inactive เท่านั้น และ v4.2.2 ไม่อ่าน ไม่เขียน และไม่เผยแพร่คำสั่งจากไฟล์เหล่านี้
-- แผงเจ้าของ v4.2.2 เป็นหน้าต่าง native สำหรับอ่าน presence ที่ถอดรหัสได้ เก็บประวัติไว้ในเครื่อง และไม่ยืนยันตัวบุคคลจากข้อมูลออนไลน์
+- แผงเจ้าของ v4.2.3 เป็นหน้าต่าง native สำหรับอ่าน presence ที่ถอดรหัสได้ เก็บประวัติไว้ในเครื่อง และไม่ยืนยันตัวบุคคลจากข้อมูลออนไลน์
 
 ไฟล์ release ของโปรแกรมจะถูกอัปโหลดเป็น GitHub Release แยกจาก branch `main` นี้
